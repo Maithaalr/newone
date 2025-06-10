@@ -115,7 +115,7 @@ if uploaded_file:
                 fig_religion.update_layout(title='توزيع الموظفين حسب الديانة', title_x=0.5)
                 st.plotly_chart(fig_religion, use_container_width=True)
 
-        col3, col4 = st.columns(2)
+        col3 = st.columns(1)
 
         with col3:
             if 'الدائرة' in df.columns:
@@ -128,46 +128,48 @@ if uploaded_file:
                 fig_dept.update_layout(title='نسبة الموظفين حسب الدائرة', title_x=0.5)
                 st.plotly_chart(fig_dept, use_container_width=True)
 
-        with col4:
-            if 'العمر' in df.columns:
-                fig_hist = px.histogram(df, x='العمر', nbins=10,
+
+        if 'العمر' in df.columns:
+            fig_hist = px.histogram(df, x='العمر', nbins=10,
                                         color_discrete_sequence=['#2F4156'])
-                fig_hist.update_layout(title='Histogram - توزيع الأعمار', title_x=0.5)
-                st.plotly_chart(fig_hist, use_container_width=True)
+            fig_hist.update_layout(title='Histogram - توزيع الأعمار', title_x=0.5)
+            st.plotly_chart(fig_hist, use_container_width=True)
 
-            if 'العمر' in df.columns:
-                # تقسيم الأعمار إلى 20 فئة تلقائيًا
-                df['فئة العمر'] = pd.cut(df['العمر'], bins=20)
+        if 'العمر' in df.columns:
+            # تقسيم الأعمار إلى 20 فئة تلقائيًا
+            df['فئة العمر'] = pd.cut(df['العمر'], bins=20)
 
-                # استخراج الفئة كنص بسيط (مثل: "30-34")
-                age_counts = df['فئة العمر'].value_counts().sort_index().reset_index()
-                age_counts.columns = ['الفئة', 'العدد']
-                age_counts['النسبة'] = round((age_counts['العدد'] / age_counts['العدد'].sum()) * 100, 1)
-                age_counts['الفئة النصية'] = age_counts['الفئة'].apply(lambda x: f"{int(x.left)}-{int(x.right)}")
+            # استخراج الفئة كنص بسيط (مثل: "30-34")
+            age_counts = df['فئة العمر'].value_counts().sort_index().reset_index()
+            age_counts.columns = ['الفئة', 'العدد']
+            age_counts['النسبة'] = round((age_counts['العدد'] / age_counts['العدد'].sum()) * 100, 1)
+            age_counts['الفئة النصية'] = age_counts['الفئة'].apply(lambda x: f"{int(x.left)}-{int(x.right)}")
 
-                # النص الكامل للعرض
-                age_counts['التسمية'] = age_counts.apply(
+            # النص الكامل للعرض
+            age_counts['التسمية'] = age_counts.apply(
                     lambda row: f"{row['الفئة النصية']} | {row['العدد']} ({row['النسبة']}%)", axis=1
-                )
+            )
 
                 # رسم الرسم البياني
-                fig_bar = px.bar(
-                    age_counts,
-                    x='الفئة النصية',
-                    y='العدد',
-                    text='التسمية',
-                    color='العدد',
-                    color_continuous_scale=['#C8D9E6', '#2F4156']
+            fig_bar = px.bar(
+                age_counts,
+                x='الفئة النصية',
+                y='العدد',
+                text='التسمية',
+                color='العدد',
+                color_continuous_scale=['#C8D9E6', '#2F4156']
                 )
 
-                fig_bar.update_traces(
-                    textposition='outside',
-                    textangle=0,
-                    textfont_size=11
+            fig_bar.update_traces(
+                textposition='outside',
+                textangle=0,
+                textfont_size=11
                 )
 
 
-                fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45, yaxis_title='العدد', xaxis_title='الفئة العمرية')
+            fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45, yaxis_title='العدد', xaxis_title='الفئة العمرية')
+
+            with st.container():
                 st.plotly_chart(fig_bar, use_container_width=True)
 
 
