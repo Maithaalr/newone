@@ -167,7 +167,7 @@ if uploaded_file:
                 )
 
 
-                fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45, yaxis_title='العدد', xaxis_title='الفئة العمرية', uniformtext_minsize=8, uniformtext_mode='hide')
+                fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45, yaxis_title='العدد', xaxis_title='الفئة العمرية')
                 st.plotly_chart(fig_bar, use_container_width=True)
 
 
