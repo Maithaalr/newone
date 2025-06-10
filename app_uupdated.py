@@ -147,7 +147,7 @@ if uploaded_file:
 
                 # النص الكامل للعرض
                 age_counts['التسمية'] = age_counts.apply(
-                    lambda row: f"{row['الفئة النصية']}\n{row['العدد']} ({row['النسبة']}%)", axis=1
+                    lambda row: f"{row['الفئة النصية']} | {row['العدد']} ({row['النسبة']}%)", axis=1
                 )
 
                 # رسم الرسم البياني
