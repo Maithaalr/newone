@@ -159,7 +159,15 @@ if uploaded_file:
                     color='العدد',
                     color_continuous_scale=['#C8D9E6', '#2F4156']
                 )
-                fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45)
+
+                fig_bar.update_traces(
+                    textposition='outside',
+                    textangle=0,
+                    textfont_size=11
+                )
+
+
+                fig_bar.update_layout(title='Bar Chart - توزيع الأعمار مع الفئة والعدد والنسبة', title_x=0.5, xaxis_tickangle=-45, yaxis_title='العدد', xaxis_title='الفئة العمرية', uniformtext_minsize=8, uniformtext_mode='hide')
                 st.plotly_chart(fig_bar, use_container_width=True)
 
 
