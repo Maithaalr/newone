@@ -130,7 +130,7 @@ if uploaded_file:
 
         with col4:
             if 'العمر' in df.columns:
-                fig_hist = px.histogram(df, x='العمر', nbins=20,
+                fig_hist = px.histogram(df, x='العمر', nbins=10,
                                         color_discrete_sequence=['#2F4156'])
                 fig_hist.update_layout(title='Histogram - توزيع الأعمار', title_x=0.5)
                 st.plotly_chart(fig_hist, use_container_width=True)
